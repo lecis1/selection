@@ -1,0 +1,7 @@
+<p>亲爱的用户</p>
+<p>欢迎来到<b>学生选课系统</b>！</p>
+<p>请点击此处来<a href="{{ url_for('auth.confirm', token=token, _external=True) }}">激活</a>你的账号。</p>
+<p>或者你可以复制下面的链接到你的浏览器的地址栏打开</p>
+<p>{{ url_for('auth.confirm', token=token, _external=True) }}</p>
+<p>来自学生选课系统</p>
+<p>注意：回复此邮件，地址不受监控。</p>

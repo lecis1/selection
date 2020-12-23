@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}选课系统—我的课程{% endblock %}
+
+{% block page_content %}
+
+    <div class="course" style="text-align: center; background-color: rgb(245,245,245)">
+        <table align="center" width="98%" border="2px blue" cellspacing="0" style="border-color: blue" >
+            <tr>
+                <h2 style=" color: rgb(102,102,102)">我的课程列表</h2>
+            </tr>
+            <tr style="font:bold 22px 微软雅黑; color: rgb(102,102,102); border-color: blue">
+                <td>课程编号</td>
+                <td>课程名</td>
+                <td>课程时间</td>
+                <td>课程地点</td>
+                <td>课程老师</td>
+                <td>管理</td>
+            </tr>
+            {% for course in courses %}
+            <tr style="text-align: center; color: rgb(0,0,255); font:16px 微软雅黑">
+                <td>{{ course.course_sid }}</td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.course_time }}</td>
+                <td>{{ course.course_adr }}</td>
+                <td><a href="{{ url_for('ch_course.show_teacher_profile', teacher_sid=course.teacher.sid) }}">{{ course.teacher.username }}</a></td>
+                <td><a href="#">退选</a> </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

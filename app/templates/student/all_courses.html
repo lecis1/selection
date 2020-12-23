@@ -1,0 +1,79 @@
+ {% extends 'base.html' %}
+ {% import "paginate/pagination.html" as paginate %}
+
+ {% block title %}所有课程{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="breadcrub">
+            当前位置：课程大厅>所有课程
+{#            <div><a href="">继续选课</a></div>#}
+        </div>
+    <div style="background-color: #f0f0f0;border: 1px solid #e1e1e1; margin-top: 10px;padding: 10px 0px 10px 620px;border-radius: 2px;font-size: 16px;">
+    <form method="post" action="#">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        课程名:<input type="text" name="course_name" style="height: 25px;border: 1px solid #e0e0e0; border-radius: 4px;">
+        老师:<input type="text" name="teacher_name" style="height: 25px;border: 1px solid #e0e0e0; border-radius: 4px;">
+        <button type="submit" style="margin-right: 10px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">查询</button>
+    </form>
+    </div>
+        <div class="pannel" style="margin: 10px 0 0 0;">
+            <table class="common_table">
+                <tr>
+                    <th>课程代码</th>
+                    <th>课程名</th>
+                    <th>学期</th>
+                    <th>学年</th>
+                    <th>开课学院</th>
+                    <th>课程分类</th>
+                    <th>学分</th>
+                    <th>上课时间</th>
+                    <th>上课地点</th>
+                    <th>课程老师</th>
+{#                    <td>状态</td>#}
+{#                    <th>管理操作</th>#}
+                </tr>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_sid }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.academic_year }}</td>
+                    <td>{{ course.semester }}</td>
+                    <td>{{ course.begin_college }}</td>
+                    <td>{{ course.course_category }}</td>
+                    <td>{{ course.credit_hour }}</td>
+                    <td>{{ course.course_time }}</td>
+                    <td>{{ course.course_adr }}</td>
+
+                    <td><a href="{{ url_for('student.teacher_profile', teacher_id = course.teacher.id) }}">{{ course.teacher.username }}</a></td>
+{#                    <td>{{ course.number_remaining }}/{{ course.largest_number }}</td>#}
+{#                    <td>#}
+{#						<a href="{{url_for('student.select_course_detail', course_sid = course.course_sid)}}" class="edit">选课</a>#}
+{#					</td>#}
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'student.show_all_course') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

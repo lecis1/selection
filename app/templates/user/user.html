@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}用户个人资料中心{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}" type="text/css" />#}
+
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/error/css/main.css">
+	<script type="text/javascript" src="../../static/error/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../../static/error/js/jquery.form.min.js"></script>
+{#	<script type="text/javascript" src="../../static/error/js/main.js"></script>#}
+
+{% endblock %}
+
+{% block page_content %}
+<div class="conter_con">
+		<div class="user_menu_con fl">
+			<div class="user_center_pic">
+                {#判断用户是否有头像图片#}
+                {% if data.user_info.avatar_url %}
+                    <img src="{{ data.user_info.avatar_url }}" alt="用户图片">
+                {% else %}
+                    <img src="../../static/error/images/user_pic.png" alt="用户图片">
+                {% endif %}
+
+			</div>
+			<div class="user_center_name">{{ data.user_info.username }}</div>
+{#<a href="mailto:{{ data.user_info.email }}"></a>#}
+			<ul class="option_list">
+				<li class="active"><a href="/base_info" target="main_frame">基本资料</a></li>
+				<li><a href="/pic_info" target="main_frame">头像设置</a></li>
+                {% if data.user_info.sid | length == 9 or data.user_info.sid == 'admin' %}
+				    <li><a href="{{ url_for('teacher.created_course') }}" target="main_frame">我的课程</a></li>
+                {% else %}
+				    <li><a href="{{ url_for('student.student_schedule') }}" target="main_frame">我的课表</a></li>
+                {% endif %}
+
+				<li><a href="{{ url_for('post.user_posts', user_sid = data.user_info.sid) }}" target="main_frame">我的文章</a></li>
+			</ul>
+		</div>
+
+		<div class="user_con fr">
+			<iframe src="/base_info" frameborder="0" name="main_frame" class="main_frame" id="main_frame"></iframe>
+		</div>
+	</div>
+{% endblock %}

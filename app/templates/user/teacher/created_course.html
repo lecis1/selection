@@ -1,0 +1,126 @@
+{% import "paginate/pagination.html" as paginate %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='show_courses.css') }}"/>
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}" type="text/css" />#}
+    <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+<body>
+<div style="position:absolute;margin-left: -500px;margin-top: -400px;left: 50%;top: 50%;display: table-cell;width: 1000px ;height: 800px;background-color: white;text-align: center; vertical-align: middle;border-radius: 15px;padding-top: 20px;">
+    <div style="text-align: center;margin: 0 auto; vertical-align: middle;border-radius: 5px;">
+        <div style="margin-left: 150px;margin-right: 40px;margin-top: 100px;background-color: rgb(244,244,244); border-radius: 5px;padding-top: 20px;padding-bottom: 20px;">
+            <table id="dragTable" border="0" width="98%"  cellspacing="0" style="margin: auto;padding-left: 5px; padding-right: 5px;">
+            <tbody>
+            <tr>
+                <h2 style="text-align: center; color: rgb(102,102,102)">课程信息</h2>
+            </tr>
+                <tr>
+                    <th width="100px">课程代码</th>
+                    <th width="190px">课程名</th>
+                    <th width="190px">学年</th>
+                    <th width="135px">学期</th>
+                    <th width="190px">开课学院</th>
+                    <th width="190px">课程分类</th>
+                    <th width="190px">学分</th>
+                    <th width="190px">上课时间</th>
+                    <th width="190px">上课地点</th>
+                </tr>
+                {% for course in courses %}
+                    <tr>
+                        <td>{{ course.course_sid }}</td>
+                        <td>{{ course.course_name }}</td>
+                        <td>{{ course.academic_year }}</td>
+                        <td>{{ course.semester }}</td>
+                        <td>{{ course.begin_college }}</td>
+                        <td>{{ course.course_category }}</td>
+                        <td>{{ course.credit_hour }}</td>
+                        <td>{{ course.course_time }}</td>
+                        <td>{{ course.course_adr }}</td>
+                {% endfor %}
+
+
+
+            </tbody>
+        </table>
+
+        </div>
+
+
+    </div>
+{% if pagination %}
+    <div class="pagination" style="margin: 10px 0;">
+    {{ paginate.pagination_widget(pagination, 'teacher.created_course') }}
+    </div>
+{% endif %}
+
+</div>
+
+
+<script>
+ $(function() {
+
+     function isNullOrUndefined(obj) {
+         if (typeof(obj) == "undefined" || obj == null) {
+             return true;
+         }
+         return false;
+     }
+
+     function registerTableDragEvent() {
+
+         var dragTH; //记录拖拽的列
+         //第一步按下
+         $('#dragTable th').mousedown(function(e) {
+             e = e || window.event;
+             if (e.offsetX > $(this).innerWidth() - 10) {
+                 dragTH = $(this);
+                 dragTH.mouseDown = true;
+                 dragTH.oldX = e.pageX || e.clientX;
+                 dragTH.oldWidth = $(this).innerWidth();
+             }
+         })
+         //第二步 拖动
+         $('#dragTable th').mousemove(function(e) {
+             //改鼠标样式
+             if (e.offsetX > $(this).innerWidth() - 10) {
+                 $(this).css({
+                     cursor: "e-resize"
+                 });
+             } else {
+                 $(this).css({
+                     cursor: "default"
+                 });
+             }
+             if (isNullOrUndefined(dragTH)) {
+                 dragTH = $(this);
+             }
+             if (!isNullOrUndefined(dragTH.mouseDown) && dragTH.mouseDown == true) {
+                 var difference = (e.pageX - dragTH.oldX) || (e.clientX - dragTH.oldX);
+                 var newWidth = dragTH.oldWidth + difference; //新的宽度
+                 dragTH.width(newWidth)
+             }
+         })
+         // 第三步，释放
+         $("table#dragTable th").mouseup(function(e) {
+             // 还原鼠标样式
+             // if (isNullOrUndefined(dragTH)) {
+             //     dragTH = $(this);
+             // }
+             dragTH.mouseDown = false;
+             // $(dragTH).css({
+             //     cursor : "default"
+             // });
+         });
+     }
+     registerTableDragEvent()
+
+ })
+</script>
+
+</body>
+</html>

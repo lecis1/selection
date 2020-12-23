@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}全部用户{% endblock %}
+
+
+{% block head %}
+
+    {{ super() }}
+	<meta charset="UTF-8">
+	<title>选课系统后台管理</title>
+	<link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+{#	<script type="text/javascript" src="../../static/admin/js/echarts.min.js"></script>#}
+
+{% endblock %}
+
+
+{% block navbar %}{% endblock %}
+
+{% block page_content %}
+
+    	<div class="breadcrub">
+		当前位置：用户管理>用户统计
+	</div>
+	<div class="spannels">
+		<div class="spannel scolor01">
+			<em>{{ data.user_total }}</em><span>人</span>
+			<b>用户总数</b>
+		</div>
+		<div class="spannel scolor02">
+			<em>{{ data.teacher_total }}</em><span>人</span>
+			<b>老师总数</b>
+		</div>
+		<div class="spannel2 scolor03">
+			<em>{{ data.student_total }}</em><span>人</span>
+			<b>学生总数</b>
+		</div>
+	</div>
+
+    <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>学号/工号</th>
+                    <th>角色</th>
+                    <th>学校</th>
+                    <th>学院</th>
+                    <th>邮箱</th>
+                </tr>
+                {% for user in user_list %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.age }}</td>
+                    <td>{{ user.sex }}</td>
+                    <td>{{ user.sid }}</td>
+                    {% if user.sid | length == 9 %}
+                    <td>老师</td>
+                    {% else %}
+                    <td>学生</td>
+                    {% endif %}
+                    <td>{{ user.university }}</td>
+                    <td>{{ user.school }}</td>
+                    <td>{{ user.email }}</td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+{% endblock %}

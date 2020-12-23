@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}选课系统 - 404{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/main.css">
+
+{% endblock %}
+
+{% block page_content %}
+
+ <div class="conter_con">
+        <div class="error_con">
+            <img src="../../static/error/images/not_found.png" alt="404">
+            <h3>OOPS!</h3>
+            <h4>该内容不存在</h4>
+            <p>请检查你输入的网址是否正确，请点击以下按钮返回主页或者发送错误报告</p>
+            <a href="{{ url_for('main.index') }}">返回首页</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}老师信息{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/error/css/main.css">
+
+{% endblock %}
+
+{#{% block avatar %}#}
+    {#这里这样写就表示继承自这个模板的页面都需要传递data#}
+{#    {% if data.user_info.avatar_url %}#}
+{#        <li>#}
+{#            <div style="width: 40px; height:40px; background-color: white; margin-top: 5px;margin-left: 20px;">#}
+{#                <a href="{{ url_for('main.user', userid=current_user.sid) }}"}>#}
+{#                    <img style="width: 100%; height: 100%; " src="{{ data.user_info.avatar_url }}"/>#}
+{#                </a>#}
+{#            </div>#}
+{#        </li>#}
+{#    {% else %}#}
+{#        <li>#}
+{#            <div style="width: 40px; height:40px; background-color: white; margin-top: 5px;margin-left: 20px;">#}
+{#                <a href="{{ url_for('main.user', userid=current_user.sid) }}"}>#}
+{#                    <img style="width: 100%; height: 100%; " src="../../static/auth/user_default.png"/>#}
+{#                </a>#}
+{#            </div>#}
+{#        </li>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+
+{% block page_content %}
+<div class="conter_con">
+		<div class="user_menu_con fl">
+			<div class="user_center_pic">
+                {#判断用户是否有头像图片#}
+                {% if data.teacher_info.avatar_url %}
+                    <img src="{{ data.teacher_info.avatar_url }}" alt="用户图片">
+                {% else %}
+                    <img src="../../static/auth/user_default.png" alt="用户图片">
+                {% endif %}
+
+			</div>
+			<div class="user_center_name"><a href="mailto:{{ data.teacher_info.email }}">{{ data.teacher_info.username }}</a></div>
+
+			<ul class="option_list">
+				<li class="active"><a href="{{ url_for('teacher.teacher_base_info', teacher_id=data.teacher_info.id) }}" target="main_frame">基本资料</a></li>
+			</ul>
+		</div>
+
+		<div class="user_con fr">
+			<iframe src="{{ url_for('teacher.teacher_base_info', teacher_id=data.teacher_info.id) }}" frameborder="0" name="main_frame" class="main_frame" id="main_frame"></iframe>
+		</div>
+	</div>
+{% endblock %}

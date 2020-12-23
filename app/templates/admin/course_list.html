@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}全部课程{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+{#    <link rel="stylesheet" href="../../static/admin/css/jquery.pagination.css">#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery.pagination.min.js"></script>#}
+
+
+{% endblock %}
+
+{% block navbar%}{% endblock %}
+
+{% block page_content %}
+<div class="breadcrub">
+            当前位置：用户管理>管理课程
+</div>
+        <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>课程名</th>
+                    <th>课程代码</th>
+                    <th>创建时间</th>
+                    <th>学年</th>
+                    <th>学期</th>
+                    <th>学分</th>
+                    <th>分类</th>
+                    <th>课程状态</th>
+                    <th>剩余容量</th>
+                    <th>老师</th>
+                    <th>管理</th>
+                </tr>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.course_sid }}</td>
+                    <td>{{ course.create_time }}</td>
+                    <td>{{ course.academic_year }}</td>
+                    <td>{{ course.semester }}</td>
+                    <td>{{ course.credit_hour }}</td>
+                    <td>{{ course.course_category }}</td>
+                    {% if course.course_delete %}
+                        <td style="color: red;">被删除</td>
+                    {% else %}
+                        {% if course.course_state %}
+                            <td style="color: green;">开课中</td>
+                        {% else %}
+                            <td style="color: red;">未开课</td>
+                        {% endif %}
+                    {% endif %}
+                    <td>{{ course.number_remaining}}/{{course.largest_number }}</td>
+                    <td>{{ course.teacher.username }}</td>
+                    <td>
+						<a href="{{url_for('admin.course_detail', course_sid=course.course_sid)}}" class="edit">管理</a>
+					</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'admin.show_courses') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

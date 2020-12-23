@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/index/w3.css">
+    <link rel="stylesheet" href="../static/index/extras.css">
+{#    <link rel="stylesheet" href="../static/index/font.css">#}
+{#    <link rel="stylesheet" href="../static/index/font-awesome.min.css">#}
+
+
+{% endblock %}
+
+<div class="w3-top">
+    <div class="w3-bar" id="myNavbar">
+        <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+{#        <i class="fa fa-bars"></i>#}
+    </a>
+{#    <a href="index.html" class="w3-bar-item w3-button">HOME</a>#}
+        {% block navbar %}
+            {{ super() }}
+        {% endblock %}
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+    </a>
+    </div>
+
+  <!-- Navbar on small screens -->
+</div>
+
+
+{% block page_content %}
+    <!-- First Parallax Image with Logo Text -->
+<div class="bgimg-2 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">学生<span class="w3-hide-small">选课</span>系统</span>
+  </div>
+</div>
+
+
+<div class="w3-content w3-container w3-padding-64" id="about">
+  <h3 class="w3-center">在线网站</h3>
+  <p class="w3-center"><em>首页</em></p>
+{#  <p>#}
+{#      I just want to say that I, Kerem, changed 2 pages instead of 1.#}
+{#  </p>#}
+  <div class="w3-row">
+    <div class="w3-col m6 w3-center w3-padding-large">
+      <img src="../static/index/3.jpg" class="w3-round w3-image w3-opacity w3-hover-opacity-off" alt="Photo of Me" width="500" height="333">
+    </div>
+
+    <!-- Hide this text on small devices -->
+    <div class="w3-col m6 w3-hide-small w3-padding-large">
+      <p>闽南师范大学是福建省重点建设大学。由原龙溪师范学校于1958年春设立师范大专班发展而来，
+          同年9月在师范大专班的基础上成立漳州大学师范学院。1959年春，在原漳州大学师范学院的基础上建立漳州师范专科学校。
+          1963年7月，经国务院批准，由漳州师范专科学校、厦门师范学院、泉州师范学院、南平师范学院合并在漳建立福建第二师范学院。
+          1966年因“文化大革命”停止招生，1970年停办。
+          1977年以来，在福建省委、省政府和漳州市委、市政府的高度重视下，重选校址，重建校园，先后经历了龙溪地区中学师资培训班、龙溪师范大专班、漳州师范专科学校。
+          1986年经原国家教委批准复办福建第二师范学院，并更名为漳州师范学院。2013年4月，更名为闽南师范大学。</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 0 auto;text-align: center;border-radius: 30px;">
+
+{% if not current_user.is_authenticated %}
+<div class="cta" style="margin-top: 10px;">
+    <a href="{{ url_for('auth.login') }}" class="btn btn-primary smooth-link" style="border-radius: 20px;">开启选课</a>
+</div>
+{% endif %}
+</div>
+
+{#Get Started#}
+{#<script>#}
+{#// Modal Image Gallery#}
+{#function onClick(element) {#}
+{#  document.getElementById("img01").src = element.src;#}
+{#  document.getElementById("modal01").style.display = "block";#}
+{#  var captionText = document.getElementById("caption");#}
+{#  captionText.innerHTML = element.alt;#}
+{#}#}
+{##}
+{#// Change style of navbar on scroll#}
+{#window.onscroll = function() {myFunction()};#}
+{#function myFunction() {#}
+{#    var navbar = document.getElementById("myNavbar");#}
+{#    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {#}
+{#        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";#}
+{#    } else {#}
+{#        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");#}
+{#    }#}
+{#}#}
+{##}
+{#// Used to toggle the menu on small screens when clicking on the menu button#}
+{#function toggleFunction() {#}
+{#    var x = document.getElementById("navDemo");#}
+{#    if (x.className.indexOf("w3-show") == -1) {#}
+{#        x.className += " w3-show";#}
+{#    } else {#}
+{#        x.className = x.className.replace(" w3-show", "");#}
+{#    }#}
+{#}#}
+{#</script>#}
+
+
+
+
+{% endblock %}
+
+
+{#{% extends "base.html" %}#}
+{##}
+{#{% block title %}首页{% endblock %}#}
+{#{% block head %}#}
+{##}
+{#{{ super() }}#}
+{#<link rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}" type="text/css" />#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block page_content %}#}
+{##}
+{#    <div class="box1">#}
+{#        <div class="mg">#}
+{#            <h1><a>学生选课系统</a></h1>#}
+{#        </div>#}
+{##}
+{#        <div class="form">#}
+{#            欢迎来到学生在线选课系统#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#{% endblock %}#}

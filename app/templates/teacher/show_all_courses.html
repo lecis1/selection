@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}全部课程{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+
+{% endblock %}
+
+
+{% block page_content %}
+
+    <div class="breadcrub">
+            当前位置：课程大厅>全部课程
+{#            <div><a href="">继续选课</a></div>#}
+        </div>
+        <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>课程代码</th>
+                    <th>课程名</th>
+                    <th>创建时间</th>
+{#                    <th>学年</th>#}
+{#                    <th>学期</th>#}
+                    <th>开课学院</th>
+                    <th>课程分类</th>
+                    <th>学分</th>
+                    <th>上课时间</th>
+                    <th>上课地点</th>
+                    <th>课程老师</th>
+                    <th>状态</th>
+                </tr>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_sid }}</td>
+                    {% if current_user in course.students %}
+                    <td style="color: red;">{{ course.course_name }}</td>
+                    {% else %}
+                    <td>{{ course.course_name }}</td>
+                    {% endif %}
+{#                    <td>{{ course.academic_year }}</td>#}
+{#                    <td>{{ course.semester }}</td>#}
+                    <td>{{ course.create_time }}</td>
+                    <td>{{ course.begin_college }}</td>
+                    <td>{{ course.course_category }}</td>
+                    <td>{{ course.credit_hour }}</td>
+                    <td>{{ course.course_time }}</td>
+                    <td>{{ course.course_adr }}</td>
+                    {% if course.teacher == current_user %}
+                        <td>{{ course.teacher.username }}</td>
+                    {% else %}
+                        <td><a href="{{url_for('teacher.teacher_profile', teacher_id=course.teacher.id)}}">{{ course.teacher.username }}</a></td>
+                    {% endif %}
+
+                    {% if course.course_state %}
+                        <td style="color: green">进行中</td>
+                    {% else %}
+                        <td style="color: red">未开放</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'teacher.show_all_courses') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

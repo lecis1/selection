@@ -1,0 +1,78 @@
+ {% extends 'base.html' %}
+ {% import "paginate/pagination.html" as paginate %}
+
+ {% block title %}所有课程{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="breadcrub">
+            当前位置：课程大厅>学习情况
+{#            <div><a href="">继续选课</a></div>#}
+    </div>
+    <div style="width: 100%; margin: 0 auto 20px;background-color: #f0f0f0;border: 1px solid #e1e1e1;padding: 10px 0;border-radius: 4px;font-size: 16px;">
+        <button style="margin-left: 1020px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;width:95px;">当前学分：<br/>{{ data.total_credit }}</button>
+
+    </div>
+     <div class="pannel" style="margin: 25px 0 0 0;">
+            <table class="common_table">
+                <tr>
+                    <th>课程代码</th>
+                    <th>课程名</th>
+                    <th>学年</th>
+                    <th>学期</th>
+                    <th>开课学院</th>
+                    <th>课程分类</th>
+                    <th>学分</th>
+                    <th>上课时间</th>
+                    <th>上课地点</th>
+                    <th>课程老师</th>
+{#                    <th>修课次数</th>#}
+                    <th>课程状态</th>
+{#                    <th>管理操作</th>#}
+                </tr>
+                {% for course in data.courses %}
+                <tr>
+                    <td>{{ course['course'].course_sid }}</td>
+                    <td>{{ course['course'].course_name }}</td>
+                    <td>{{ course['course'].academic_year }}</td>
+                    <td>{{ course['course'].semester }}</td>
+                    <td>{{ course['course'].begin_college }}</td>
+                    <td>{{ course['course'].course_category }}</td>
+                    <td>{{ course['course'].credit_hour }}</td>
+                    <td>{{ course['course'].course_time }}</td>
+                    <td>{{ course['course'].course_adr }}</td>
+
+                    <td><a href="{{ url_for('student.teacher_profile', teacher_id = course['course'].teacher.id) }}">{{ course['course'].teacher.username }}</a></td>
+                    {% if course['course_state'] %}
+                        <td style="color: red"style="color: green">已完成</td>
+                    {% else %}
+                        <td style="color: green">学习中</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'student.show_all_course') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}
+

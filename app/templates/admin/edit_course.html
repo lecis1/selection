@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}选课系统—创建课程{% endblock %}
+
+{% block head %}
+{{ super() }}
+<meta charset="UTF-8"/>
+
+{#    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">#}
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+    <style type="text/css">
+
+    input{
+            outline: none;
+            border: none;
+            border-radius: 5px;
+    }
+
+     #book_author{
+         width: 360px;
+         height:130px;
+         border: 2px solid #e1e1e1;
+         border-radius: 10px;
+         outline: none;
+     }
+     #book_describe{
+         width: 360px;
+         height:130px;
+         border: 2px solid #e1e1e1;
+         border-radius: 10px;
+         outline: none;
+     }
+
+     #course_category{
+         width: 160px;
+         height: 28px;
+         outline: none;
+         border: none;
+         border-radius: 5px;
+     }
+
+     #course_time{
+         width: 225px;
+     }
+
+     #submit{
+         border-radius: 10px;
+     }
+     .book{
+         margin-left: 95px;
+     }
+     .book2{
+         margin-left: 60px;
+     }
+
+    </style>
+
+{% endblock %}
+
+
+{% block navbar %}{% endblock %}
+
+{% block page_content %}
+    <div class="breadcrub" style="margin: 0 0 10px 0;">
+            当前位置：课程大厅>编辑课程
+    </div>
+    <div style="width: 100%; border: 1px solid #e1e1e1;">
+        <a href="{{ url_for('admin.course_detail', course_sid=data.course_sid) }}"><button style="margin:10px 0px 10px 995px; background-color: #467FE6; color: #e1e1e1;border: none;outline: none;border-radius: 4px;">返回</button></a>
+
+    </div>
+
+    <div style="border:3px solid #e1e1e1;border-radius: 5px; height: 560px;margin-top: 10px;font-family: 宋体;font-size: 18px;">
+        <form method="post" action="" enctype="multipart/form-data">
+            <div style="padding-top:30px;">
+                <div style="display: inline-block;">
+                    <div>
+                    {{ form.course_name.label(style="margin-left: 80px;")  }}:{{ form.course_name }}<br/>
+                    {% for message in form.course_name.errors %}
+                        <div class="error" style="text-align: left; margin-left: 140px; color: red; float: left">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                </div>
+
+                <div style="display: inline-block;" >
+                    <div>
+                        {{ form.academic_year.label(style="margin-left: 115px;") }}:{{ form.academic_year }}<br/>
+                        {% for message in form.academic_year.errors %}
+                            <div class="error" style="text-align: left; margin-left: 135px; color: red;float: left">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div style="display: inline-block;">
+                    <div>
+                    {{ form.semester.label(style="margin-left: 100px;") }}:{{ form.semester }}<br/>
+                    {% for message in form.semester.errors %}
+                        <div class="error" style="text-align: left; margin-left: 170px; color: red;float: left">{{ message }}</div>
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding-top:30px;">
+                <div style="display: inline-block;" >
+                <div>
+                    {{ form.begin_college.label(style="margin-left: 61px;")  }}:{{ form.begin_college }}<br/>
+                    {% for message in form.begin_college.errors %}
+                        <div class="error" style="text-align: left; margin-left: 140px; color: red;float: left">{{ message }}</div>
+                    {% endfor %}
+
+                </div>
+                </div>
+                <div style="display: inline-block;" >
+                    {{ form.course_category.label(style="margin-left: 80px;") }}:{{ form.course_category }}
+                </div>
+
+                <div style="display: inline-block;" >
+                <div>
+                    {{ form.credit_hour.label(style="margin-left: 90px;") }}:{{ form.credit_hour }}<br/>
+                    {% for message in form.credit_hour.errors %}
+                        <div class="error" style="text-align: left; margin-left: 170px; color: red;float: left">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                </div>
+
+            </div>
+            <div style="padding-top:30px;">
+                <div style="display: inline-block;" >
+                <div>
+                    {{ form.course_time.label(style="margin-left: 61px;")  }}:{{ form.course_time }}<br/>
+                    {% for message in form.course_time.errors %}
+                        <div class="error" style="text-align: left; margin-left: 140px; color: red;float: left">{{ message }}</div>
+                    {% endfor %}
+
+                </div>
+
+                </div>
+                <div style="display: inline-block;" >
+                <div>
+                    {{ form.course_adr.label(style="margin-left: 43px;") }}:{{ form.course_adr }}<br/>
+                    {% for message in form.course_adr.errors %}
+                        <div class="error" style="text-align: left; margin-left: 100px; color: red;float: left">{{ message }}</div>
+                    {% endfor %}
+
+                </div>
+                </div>
+
+            </div>
+
+{#            <div style="padding-top:30px;">#}
+{#                {{ form.course_avatar.label(style="margin-left: 60px;") }}:{{ form.course_avatar(style="display: inline-block") }}#}
+{#            </div>#}
+
+            <div style="padding-top:30px;">
+                <div style="display: inline-block;">
+                    {{ form.course_avatar.label(style="margin-left: 90px;") }}:{{ form.course_avatar(style="display: inline-block") }}
+                </div>
+                <div style="display: inline-block">
+                    {{ form.largest_number.label(style="margin-left: 280px;") }}:{{ form.largest_number }}
+
+                </div>
+            </div>
+
+            <div style="padding-top:30px;">
+                <div class="book" style="display: inline-block">
+                    <div>{{ form.book_author.label }}:</div>
+                    {{ form.book_author(style="display: inline-block; border-radu") }}
+                </div>
+
+                <div class="book2" style="display: inline-block;">
+                    <div>{{ form.book_describe.label }}:
+                    </div>{{ form.book_describe }}
+                </div>
+                <div style=" float: right">
+                    <div style="padding-top: 65px;padding-right: 95px;">{{ form.submit(style="background-color: #4d9df1; color: white;width:85px;height: 45px;") }}</div>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
+

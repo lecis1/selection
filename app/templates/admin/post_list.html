@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}文章列表{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+{#    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>#}
+
+
+{% endblock %}
+
+{% block navbar%}{% endblock %}
+
+{% block page_content %}
+<div class="breadcrub">
+            当前位置：用户管理>管理言论
+        </div>
+        <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>作者</th>
+                    <th>内容</th>
+                    <th>发布时间</th>
+                    <th>管理</th>
+                </tr>
+                {% for post in posts %}
+                <tr>
+                {% if post.student %}
+                    <td>{{ post.student.username }}</td>
+                {% else %}
+                    <td>{{ post.teacher.username }}</td>
+                {% endif %}
+                    <td>{{ post.body[:20] + "..." }}</td>
+                    <td>{{ post.create_time }}</td>
+                    <td>
+						<a href="{{ url_for('admin.delete_post', post_id=post.id) }}" class="edit">删除</a>
+					</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'admin.show_courses') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

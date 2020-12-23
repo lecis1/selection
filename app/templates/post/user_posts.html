@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "paginate/pagination.html" as paginate %}
+{% block title %}评论{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+<style>
+ body{
+     margin:0 100px 0 0 ;
+ }
+</style>
+
+{% endblock %}
+
+{#不需要导航栏#}
+{% block navbar %}
+{% endblock %}
+
+{% block page_content %}
+
+<h3>我的文章</h3>
+<div class="post-tabs">
+   {% include 'post/_my_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ paginate.pagination_widget(pagination, 'post.user_posts', user_sid=data.user_info.sid) }}
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}

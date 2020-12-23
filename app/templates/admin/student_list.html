@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}学生列表{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+{#    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>#}
+
+
+{% endblock %}
+
+{% block navbar%}{% endblock %}
+
+{% block page_content %}
+<div class="breadcrub">
+            当前位置：用户管理>管理学生
+        </div>
+        <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>用户名</th>
+                    <th>工号</th>
+                    <th>注册时间</th>
+                    <th>邮箱</th>
+                    <th>管理操作</th>
+                </tr>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.username }}</td>
+                    <td>{{ student.sid }}</td>
+                    <td>{{ student.create_time }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+						<a href="{{ url_for('admin.delete_student', sid=student.sid) }}" class="edit">删除</a>
+					</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'admin.show_students') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>新经资讯后台管理</title>#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css" />#}
+{#    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">#}
+{#    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">#}
+{#    <link rel="stylesheet" href="../../static/admin/css/jquery.pagination.css">#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery.pagination.min.js"></script>#}
+{#</head>#}
+{#<body>#}
+{#    #}
+{#</body>#}
+{#</html>#}

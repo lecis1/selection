@@ -1,0 +1,132 @@
+
+{% extends 'base.html' %}
+
+{% block title %}课程详情{% endblock %}
+
+{% block head %}
+
+    {{ super() }}
+    <style type="text/css">
+        body{
+            background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+        }
+        a{
+
+            color: rgb(116,95,214);
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/main.css">
+    <script type="text/javascript" src="../../static/error/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../static/error/js/main.js"></script>
+     <script type="text/javascript" src="../../static/error/js/detail.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+
+
+{% endblock %}
+
+{% block page_content %}
+    <div class="breadcrub" style="margin: 0 0 10px 0;">
+            当前位置：课程大厅>课程详情
+    </div>
+<div style="width: 100%;height:800px;border-radius: 15px;">
+<div style="width: 100%; margin: 0 auto 20px;background-color: #f0f0f0;border: 1px solid #e1e1e1;padding: 10px 0;border-radius: 4px;font-size: 16px;">
+    {% if data.course.course_state %}
+    <a href="{{url_for('teacher.change_state', course_sid=data.course.course_sid)}}"><button style="margin-left: 500px; background-color: red; color: #e1e1e1;border: 0px;border-radius: 4px;">关闭选课</button></a>
+    {% else %}
+    <a href="{{url_for('teacher.change_state', course_sid=data.course.course_sid)}}"><button style="margin-left: 500px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">开启选课</button></a>
+    {% endif %}
+    <a href="{{ url_for('teacher.student_of_course', course_sid=data.course.course_sid) }}"><button style="margin-left: 60px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">学生</button></a>
+    <a href="{{ url_for('teacher.edit_course', course_sid=data.course.course_sid) }}"><button style="margin-left: 60px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">编辑</button></a>
+    {% if data.course.course_finish %}
+{#        {{url_for('teacher.change_state', course_sid=data.course.course_sid)}}#}
+{#        <a href="">{{ data.course.course_finish  }}</a>#}
+        <a href="{{url_for('teacher.finish_course', course_sid=data.course.course_sid)}}"><button style="margin-left: 60px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">开课</button></a>
+    {% else %}
+{#        <a href="">{{ data.course.course_finish }} </a>#}
+        <a href="{{url_for('teacher.finish_course', course_sid=data.course.course_sid)}}"><button style="margin-left: 60px; background-color: red; color: #e1e1e1;border: 0px;border-radius: 4px;">结课</button></a>
+    {% endif %}
+    <a href="{{ url_for('teacher.delete_course', course_sid=data.course.course_sid) }}"><button style="margin-left: 60px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">删除</button></a>
+    <a href="{{ url_for('teacher.manage_course') }}"><button style="margin-left: 60px; background-color: #467FE6; color: #e1e1e1;border: 0px;border-radius: 4px;">返回</button></a>
+
+</div>
+    <div class="detail_con fl" style="width: 40%; height: 70%;border: 2px solid #e1e1e1;border-radius: 5px;background-color: rgb(241,242,246)">
+            <h4>{{ data.course.course_name }}</h4>
+            <div style="width: 160px;height: 160px;text-align: center;">
+                {% if data.course.course_avatar %}
+                    <img src="{{ data.course.course_avatar}}" style="vertical-align: middle; max-height: 160px;max-width: 160px;"/>
+                {% else %}
+                    <img src="../../static/error/images/宪法.jpg" style="vertical-align: middle;max-width: 160px;max-height: 160px;"/>
+                {% endif %}
+            </div>
+            <div class="detail_about clearfix" style="border: none;">
+                <span class="time_souce fl"> 课程代码：{{ data.course.course_sid }}</span>
+            </div>
+
+            <div class="detail_about clearfix">
+                 <span class="time_souce fl"> 课程名：{{ data.course.course_name}}</span>
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl"> 学年：{{ data.course.academic_year }}</span>
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl">开课学院：{{ data.course.begin_college }}</span>
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl"> 学分：{{ data.course.credit_hour }}</span>
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl"> 课程老师：{{ data.course.teacher.username }}</span>
+
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl"> 上课时间：{{ data.course.course_time }}</span>
+
+            </div>
+
+            <div class="detail_about clearfix">
+                <span class="time_souce fl"> 上课地点：{{ data.course.course_adr }}</span>
+
+            </div>
+    </div>
+
+    <div class="detail_con fl" style="width: 60%;height: 70%;background-color:rgb(241,242,246);float: right;border: 2px solid #e1e1e1;border-radius: 5px;">
+        <h4>教材介绍：</h4>
+        <div>
+            <p>
+                <span style="font-size: 20px;padding-left: 40px;">内容简介：</span><br>
+                {% if data.course.course_book.author_about %}
+                    <p style="text-indent: 80px">{{ data.course.course_book.author_about }}</p>
+                {% else %}
+                    <p style="text-align: center;"><span style="color: blue; font-size: 28px;">暂无介绍</span></p>
+                {% endif %}
+
+            </p>
+        </div>
+        <div>
+            <p>
+                <span style="font-size: 20px; padding-left: 40px;">作者简介：</span><br/>
+                {% if data.course.course_book.book_describe %}
+                    <p style="text-indent: 80px;margin-bottom: 30px;">{{ data.course.course_book.book_describe }}</p>
+                {% else %}
+                    <p style="text-align: center;margin-bottom: 30px;"><span style="color: blue; font-size: 28px;">暂无介绍</span></p>
+                {% endif %}
+            </p>
+        </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

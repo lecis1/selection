@@ -1,0 +1,9 @@
+亲爱的 {{ user.username }}, 欢迎注册选课系统！
+
+请点击下面的链接来确认你的账户：
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+来自选课系统
+
+注：回复此电子邮件，地址不受监控

@@ -1,0 +1,7 @@
+<p>亲爱的用户</p>
+<p>注意<b>你正在换绑邮箱</b>！</p>
+<p>请点击此处来<a href="{{ url_for('auth.change_email', token=token, _external=True) }}">换绑邮箱</a></p>
+<p>或者你可以复制下面的链接到你的浏览器的地址栏打开</p>
+<p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
+<p>来自学生选课系统</p>
+<p>注意：回复此邮件，地址不受监控。</p>

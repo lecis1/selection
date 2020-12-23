@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "paginate/pagination.html" as paginate %}
+{% block title %}评论{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+
+<style>
+
+    body{
+        background-color: white;
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block page_content %}
+<div class="page-header">
+    <h2>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h2>
+</div>
+<div>
+    {{ wtf.quick_form(form) }}
+</div>
+<div class="post-tabs">
+    {% include 'post/_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ paginate.pagination_widget(pagination, 'post.posts') }}
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}

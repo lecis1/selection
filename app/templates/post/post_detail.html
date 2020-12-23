@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}选课系统 - 文章详情{% endblock %}
+
+{% block avatar %}
+{#这里这样写就表示继承自这个模板的页面都需要传递data#}
+    {% if data.user_info.avatar_url %}
+        <li>
+            <div style="width: 40px; height:40px; background-color: white; margin-top: 5px;margin-left: 20px;">
+                <a href="{{ url_for('main.user', userid=current_user.sid) }}"}>
+                    <img style="width: 100%; height: 100%; " src="{{ data.user_info.avatar_url }}"/>
+                </a>
+            </div>
+        </li>
+    {% else %}
+        <li>
+            <div style="width: 40px; height:40px; background-color: white; margin-top: 5px;margin-left: 20px;">
+                <a href="{{ url_for('main.user', userid=current_user.sid) }}"}>
+                    <img style="width: 100%; height: 100%; " src="../../static/auth/user_default.png"/>
+                </a>
+            </div>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+{% include 'post/_posts.html' %}
+<h4 id="comments">评论</h4>
+{#{% if current_user.can(Permission.COMMENT) %}#}
+<div class="comment-form">
+    {{ wtf.quick_form(form) }}
+</div>
+{#{% endif %}#}
+{% include 'post/_comments.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ paginate.pagination_widget(pagination, 'post.post_detail', fragment='#comments', id=posts[0].id) }}
+</div>
+{% endif %}
+{% endblock %}

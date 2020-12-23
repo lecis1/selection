@@ -1,0 +1,76 @@
+{#{% extends "base.html" %}#}
+{#{% import "bootstrap/wtf.html" as wtf %}#}
+{#{% block title %}选课系统—登录{% endblock %}#}
+{##}
+{#{% block page_content %}#}
+{#    <div class="page-header">#}
+{#        <h1>换绑邮箱</h1>#}
+{#    </div>#}
+{#    <div class="col-md-4">#}
+{#        {{ wtf.quick_form(form) }}#}
+{#    </div>#}
+{##}
+{##}
+{#{% endblock %}#}
+
+{#{% extends "base.html" %}#}
+{#{% import "bootstrap/wtf.html" as wtf %}#}
+{#{% block title %}选课系统—登录{% endblock %}#}
+{##}
+{#{% block avatar %}{% endblock %}#}
+{##}
+{#{% block page_content %}#}
+{#    <div class="page-header">#}
+{#        <h1>修改密码</h1>#}
+{#    </div>#}
+{#    <div class="col-md-4">#}
+{#        {{ wtf.quick_form(form) }}#}
+{#    </div>#}
+{##}
+{##}
+{#{% endblock %}#}
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}选课系统—更换邮箱{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+
+
+<style>
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: rgb(250,250,250);
+    }
+</style>
+
+{% endblock %}
+    {% block page_content %}
+    <div class="page-header" style="margin: 20px auto; font-size: 26px; color: #1e6abc; text-align: center;">
+        <span>更换邮箱地址</span>
+    </div>
+<div style="width: 90%;height: 500px; border: 6px solid rgb(237,237,237); margin: 20px auto;border-radius: 10px;">
+
+    <div class="col-md-4" style=" display: inline-block; background-color: white; height: 475px; width: 30%; padding-top: 120px; margin-right: 50px;margin-top: 10px;margin-left: 10px;border-radius: 10px;">
+            {{ wtf.quick_form(form) }}
+{#            <div style="line-height: 30px;text-align: center;">#}
+{#                已有账号？点此<a style="font-size: 16px; color: #1e6abc" href="{{ url_for('auth.login') }}">登录</a><br/>#}
+{#                忘记密码？点此<a style="font-size: 16px; color: #1e6abc" href="{{ url_for('auth.password_reset_request') }}">重置密码</a>#}
+{#            </div>#}
+    </div>
+
+    <div style="display: inline-block; width:60%; height:475px;background: url('../../static/auth/change_email.jpg') no-repeat;background-size: 100% 100%;border-radius: 10px;margin-top: 10px;margin-left: 10px;">
+    </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "paginate/pagination.html" as paginate %}
+
+{% block title %}学生列表{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+<meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+{#    <link rel="stylesheet" href="../../static/admin/css/jquery.pagination.css">#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>#}
+{#    <script type="text/javascript" src="../../static/admin/js/jquery.pagination.min.js"></script>#}
+
+
+{% endblock %}
+
+{% block navbar%}{% endblock %}
+
+{% block page_content %}
+<div class="breadcrub">
+            当前位置：树洞>管理评论
+        </div>
+        <div class="pannel">
+            <table class="common_table">
+                <tr>
+                    <th>作者</th>
+                    <th>内容</th>
+                    <th>发布时间</th>
+                    <th>管理</th>
+                </tr>
+                {% for comment in comments %}
+                <tr>
+                {% if comment.student %}
+                    <td>{{ comment.student.username }}</td>
+                {% else %}
+                    <td>{{ comment.teacher.username }}</td>
+                {% endif %}
+                    <td>{{ comment.body[:20] + "..." }}</td>
+                    <td>{{ comment.create_time }}</td>
+                    <td>
+						<a href="{{ url_for('admin.delete_comment', comment_id=comment.id) }}" class="edit">删除</a>
+					</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% if pagination %}
+
+        {% endif %}
+        </div>
+
+        <div class="box">
+            {% if pagination %}
+            <div class="pagination" style="margin: 10px 0;">
+                {{ paginate.pagination_widget(pagination, 'admin.show_courses') }}
+            </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

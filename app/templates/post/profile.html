@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}老师信息{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+    <link rel="stylesheet" type="text/css" href="../../static/error/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/error/css/main.css">
+	<script type="text/javascript" src="../../static/error/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../../static/error/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="../../static/error/js/main.js"></script>
+
+{% endblock %}
+
+{% block page_content %}
+<div class="conter_con">
+		<div class="user_menu_con fl">
+			<div class="user_center_pic">
+                {#判断用户是否有头像图片#}
+                {% if data.user.avatar_url %}
+                    <img src="{{ data.user.avatar_url }}" alt="用户图片">
+                {% else %}
+                    <img src="../../static/error/images/user_pic.png" alt="用户图片">
+                {% endif %}
+
+			</div>
+			<div class="user_center_name"><a href="mailto:{{ data.user.email }}">{{ data.user.username }}</a></div>
+
+			<ul class="option_list">
+				<li class="active"><a href="{{ url_for('main.user_base_info', user_sid=data.user.sid) }}" target="main_frame">基本资料</a></li>
+			</ul>
+		</div>
+
+		<div class="user_con fr">
+			<iframe src="{{ url_for('main.user_base_info', user_sid=data.user.sid) }}" frameborder="0" name="main_frame" class="main_frame" id="main_frame"></iframe>
+		</div>
+	</div>
+{% endblock %}
